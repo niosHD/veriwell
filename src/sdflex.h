@@ -32,7 +32,7 @@
 
 // public definitions
 
-void sdf_error(char *message);
+void sdf_error(const char *message);
 FILE *sdflexOpenFile(char *filename);
 void sdflexInit(void);
 int sdfEnableEdges(int enable);

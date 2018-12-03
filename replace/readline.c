@@ -24,7 +24,7 @@
 #include <stdio.h>
 #include <string.h>
 
-char *readline( char* prompt )
+char *readline( const char* prompt )
 {
     char  buffer[256];
     char* result; 

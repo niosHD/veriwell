@@ -54,12 +54,12 @@
 #  elif defined(HAVE_READLINE_H)
 #    include <readline.h>
 #  else /* !defined(HAVE_READLINE_H) */
-extern char *readline ();
+#    error "readline dev header is missing"
 #  endif /* !defined(HAVE_READLINE_H) */
 char *cmdline = NULL;
 #else /* !defined(HAVE_READLINE_READLINE_H) */
-  /* no readline */
-extern "C" char* readline(char*);
+  /* no readline, use the bundled replacement version */
+extern "C" char* readline(const char*);
 #endif /* HAVE_LIBREADLINE */
 
 #ifdef HAVE_READLINE_HISTORY
@@ -68,9 +68,8 @@ extern "C" char* readline(char*);
 #  elif defined(HAVE_HISTORY_H)
 #    include <history.h>
 #  else /* !defined(HAVE_HISTORY_H) */
+#    error "readline history dev header is missing"
 #  endif /* defined(HAVE_READLINE_HISTORY_H) */
-  /* no history */
-#else /* !HAVE_READLINE_HISTORY */
 #endif /* HAVE_READLINE_HISTORY */
 
 

@@ -31,7 +31,7 @@
 
 // public definitions
 
-void sdfconfig_error(char *message);
+void sdfconfig_error(const char *message);
 FILE *sdfclexOpenFile(char *filename);
 void sdfclexInit(void);
 

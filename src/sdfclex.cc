@@ -230,7 +230,7 @@ FILE *sdfclexOpenFile(char *aFilename)
 
  *******************************************************************/
 
-void sdfconfig_error(char *message)
+void sdfconfig_error(const char *message)
 {
     io_printf("SDF ERROR: %s L%ld, %s\n", filename, lineNumber, message);
 }
