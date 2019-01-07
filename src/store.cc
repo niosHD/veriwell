@@ -241,16 +241,14 @@ void store(tree lval, tree pc)
 /* Bit reference                                                           */
 /***************************************************************************/
 
-    case ARRAY_BIT_REF:
     case BIT_REF:
 	/* evaluate the index */
 	nbits = R_nbits;	/* save these */
 	ngroups = R_ngroups;
 	eval(BIT_EXPR_CODE(lval));
     if (TREE_CODE(BIT_REF_DECL(lval)) == ARRAY_REF) {
-        g2 = eval_1(BIT_REF_DECL(lval));
-        --R;
-    } else
+    DECL_STORAGE(BIT_REF_DECL(lval)) = (Group *)BIT_REF_4(lval);
+    }
 	g2 = DECL_STORAGE(BIT_REF_DECL(lval));
 //      g1 = *--R; /* points to index */
 
@@ -266,7 +264,6 @@ void store(tree lval, tree pc)
 		}
 	    }
 	g1 = *--R;		/* Points to index */
-//printf("debug ... %x  %x\n", AVAL(g1), AVAL(g2));
 	if (BVAL(g1) || cond)
 	    cond = X;
 	{
