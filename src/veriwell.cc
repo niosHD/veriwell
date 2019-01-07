@@ -50,6 +50,10 @@
 #include "systask.h"
 #include "build.h"
 
+#if VDEBUG != 0
+#include "print.h"
+#endif
+
 int dump_it = 0;
 FILE *dumpfile;
 unsigned _ovrbuffer = 0x400;

@@ -45,6 +45,8 @@
 #if VDEBUG != 0
 #include <stdio.h>
 #include "flags.h"
+#include "io.h"
+#include "print.h"
 #endif
 
 #define obstack_chunk_alloc xmalloc
@@ -1489,7 +1491,6 @@ void pass3_node_tail(tree node, tree label)
 {
     enum tree_code code = TREE_CODE(node);
     tree t, t1, alt_chain, prev, tmp_tree;
-    extern void print_common();
 
 #if VDEBUG != 0
     if (vdebug)

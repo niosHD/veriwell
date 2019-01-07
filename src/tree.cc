@@ -40,6 +40,7 @@
 #include "timescal.h"
 #if VDEBUG != 0
 #include "flags.h"
+#include "io.h"
 #endif
 
 #define obstack_chunk_alloc xmalloc
@@ -356,13 +357,13 @@ tree make_node(enum tree_code code)
 
 #if VDEBUG != 0
     if (vdebug) {
-	extern unsigned long mem;
-	unsigned long mem_left = mem_avail();
+	// extern unsigned long mem;
+	// unsigned long mem_left = mem_avail();
 
 	printf_V("Made node '%s', at %p, size %d\n", tree_code_name[code],
 		 t, length);
-	printf_V("Memory used: %lu\n", mem - mem_left);
-	printf_V("Memory left: %lu\n", mem_left);
+	// printf_V("Memory used: %lu\n", mem - mem_left);
+	// printf_V("Memory left: %lu\n", mem_left);
 
     }
 #endif
