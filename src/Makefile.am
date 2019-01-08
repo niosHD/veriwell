@@ -31,12 +31,12 @@ libveriwell_la_SOURCES = parse.yy sdfparse.yy sdfcpars.yy multdiv.cc \
 		   nsched.cc verisys.cc check.cc gates.cc schedule.cc \
 		   strobe.cc glue.cc obstack.cc scope.cc timescal.cc \
 		   systask.cc copy.cc veriwell.cc pass2.cc sdf.cc \
-		   sdfclex.cc decl.cc io.cc pass3.cc trace.cc dumpvar.cc \
+		   sdfclex.cc decl.cc veriwell_io.cc pass3.cc trace.cc dumpvar.cc \
 		   lex.cc pli.cc tree.cc sdflex.cc eval.cc macro.cc \
 		   udp.cc exec.cc  specify.cc v.gpe plihacks.cc \
 		   random.cc \
 		   acc_user.h check.h copy.h decl.h dumpvar.h eval.h \
-		   exec.h flags.h gates.h glue.h io.h lex.h macro.h \
+		   exec.h flags.h gates.h glue.h veriwell_io.h lex.h macro.h \
 		   multdiv.h nsched.h obstack.h parse.h pass2.h pass3.h \
 		   pli.h plihacks.h print.h runtime.h schedule.h \
 		   scope.h sdfclex.h sdfcpars.h \

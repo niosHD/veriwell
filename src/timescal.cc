@@ -33,7 +33,7 @@
 #include "pass3.h"
 #include "timescal.h"
 #include "acc_user.h"
-#include "io.h"
+#include "veriwell_io.h"
 #include "pli.h"
 #include "systask.h"
 #include "glue.h"
@@ -148,9 +148,10 @@ int process_timescale(void)
 {
     int magnitude, unit, prec, u;
     char buffer[32];
-    char *ptr;
-    int c;
-    if (current_scope) {
+    char *ptr;
+    int c;
+
+    if (current_scope) {
 	warning("`timescale directive must be outside a module", NULL,
 		NULL);
 	return 0;
@@ -160,58 +161,60 @@ int process_timescale(void)
 	error("Modules defined before `timescale encountered", NULL, NULL);
 	return 0;
     }
-    c = fin->fgetc();
-    while (strchr(" \t", c)) {
-	c = fin->fgetc();
-    }
-    ptr = buffer;
-    while (isdigit(c) && ptr < buffer + sizeof(buffer) - 1) {
-	*ptr++ = c;
-	c = fin->fgetc();
-    }
-    *ptr = 0;
-    magnitude = atoi(buffer);
-    unit = magnitude == 1 ? 0 :
+
+    c = fin->fgetc();
+    while (strchr(" \t", c)) {
+    c = fin->fgetc();
+    }
+
+    ptr = buffer;
+    while (isdigit(c) && ptr < buffer + sizeof(buffer) - 1) {
+    *ptr++ = c;
+    c = fin->fgetc();
+    }
+    *ptr = 0;
+    magnitude = atoi(buffer);
+    unit = magnitude == 1 ? 0 :
 	magnitude == 10 ? -1 : magnitude == 100 ? -2 : 1;
 
     if (unit == 1) {
 	error("`timescale unit spec must be 1, 10 or 100", NULL, NULL);
 	return 0;
     }
-    while (strchr(" \t", c)) {
-	c = fin->fgetc();
-    }
-    ptr = buffer;
-    while (isalpha(c) && ptr < buffer + sizeof(buffer) - 1) {
-	*ptr++ = c;
-	c = fin->fgetc();
-    }
-    *ptr = 0;
-    u = timescaleunits(buffer);	/* Convert units to number */
+    while (strchr(" \t", c)) {
+	c = fin->fgetc();
+    }
+    ptr = buffer;
+    while (isalpha(c) && ptr < buffer + sizeof(buffer) - 1) {
+	*ptr++ = c;
+	c = fin->fgetc();
+    }
+    *ptr = 0;
+    u = timescaleunits(buffer);	/* Convert units to number */
     unit -= u;
 
     if (u == 1) {
 	error("`timescale units must be s, ms, us, ps, ot fs", NULL, NULL);
 	return 0;
     }
-    while (strchr(" \t", c)) {
-	c = fin->fgetc();
-    }
-    if (c != '/') {
+    while (strchr(" \t", c)) {
+	c = fin->fgetc();
+    }
+    if (c != '/') {
 	error("`timescale precision spec is missing /", NULL, NULL);
-    }
-    c = fin->fgetc();
-    while (strchr(" \t", c)) {
-	c = fin->fgetc();
-    }
-    ptr = buffer;
-    while (isdigit(c) && ptr < buffer + sizeof(buffer) - 1) {
-	*ptr++ = c;
-	c = fin->fgetc();
-    }
-    *ptr = 0;
+    }
+    c = fin->fgetc();
+    while (strchr(" \t", c)) {
+	c = fin->fgetc();
+    }
+    ptr = buffer;
+    while (isdigit(c) && ptr < buffer + sizeof(buffer) - 1) {
+	*ptr++ = c;
+	c = fin->fgetc();
+    }
+    *ptr = 0;
     magnitude = atoi(buffer);
-    prec = magnitude == 1 ? 0 :
+    prec = magnitude == 1 ? 0 :
 	magnitude == 10 ? -1 : magnitude == 100 ? -2 : 1;
 
     if (prec == 1) {
@@ -219,16 +222,16 @@ int process_timescale(void)
 	      NULL);
 	return 0;
     }
-    while (strchr(" \t", c)) {
-	c = fin->fgetc();
-    }
-    ptr = buffer;
-    while (isalpha(c) && ptr < buffer + sizeof(buffer) - 1) {
-	*ptr++ = c;
-	c = fin->fgetc();
-    }
-    *ptr = 0;
-    u = timescaleunits(buffer);	/* Convert units to number */
+    while (strchr(" \t", c)) {
+	c = fin->fgetc();
+    }
+    ptr = buffer;
+    while (isalpha(c) && ptr < buffer + sizeof(buffer) - 1) {
+	*ptr++ = c;
+	c = fin->fgetc();
+    }
+    *ptr = 0;
+    u = timescaleunits(buffer);	/* Convert units to number */
     prec -= u;
 
     if (u == 1) {
@@ -236,10 +239,10 @@ int process_timescale(void)
 	      NULL);
 	return 0;
     }
-    if (isspace(c)) {
-	fin->fungetc(c);
-    }
-    timescale_global.unit = unit;
+    if (isspace(c)) {
+	fin->fungetc(c);
+    }
+    timescale_global.unit = unit;
     timescale_global.prec = prec;
 
     /* keep track of the smallest precision in the model. */

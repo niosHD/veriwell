@@ -24,7 +24,7 @@
 #include <stdlib.h>
 #include "vtypes.h"
 #include "tree.h"
-#include "io.h"
+#include "veriwell_io.h"
 #include "print.h"
 #include "glue.h"
 #include "runtime.h"

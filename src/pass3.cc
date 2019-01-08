@@ -45,7 +45,7 @@
 #if VDEBUG != 0
 #include <stdio.h>
 #include "flags.h"
-#include "io.h"
+#include "veriwell_io.h"
 #include "print.h"
 #endif
 

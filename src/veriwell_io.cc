@@ -17,12 +17,10 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  *****************************************************************************/
 
-/* IO.C - Compiler-dependent input/output routines */
+/* VERIWELL_IO.C - Compiler-dependent input/output routines */
 
 /* fbufopen "opens" a buffer so that getc will read from it as if it
    were a file */
-
-#define IO_C
 
 #include <stdio.h>
 #include <ctype.h>
@@ -35,10 +33,12 @@
 #include "vtypes.h"
 #include "tree.h"
 #include "macro.h"
-#include "io.h"
+#include "veriwell_io.h"
 #include "glue.h"
 #include "lex.h"
 #include "veriwell.h"
+
+#include "../replace/replace.h"
 
 File *fin;			/* current input file */
 char *input_filename;

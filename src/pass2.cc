@@ -34,7 +34,7 @@
 #include "decl.h"
 #include "scope.h"
 #include "macro.h"
-#include "io.h"
+#include "veriwell_io.h"
 #include "store.h"
 #include "udp.h"
 #include "pass3.h"
@@ -156,7 +156,7 @@ static ngroups_t do_vector_stuff(tree decl)
 
 void pass3_decl(tree decl)
 {
-    enum tree_type code = (enum tree_type) TREE_CODE(decl);
+    enum tree_code code = (enum tree_code) TREE_CODE(decl);
     nbits_t nbits;
     ngroups_t ngroups;
     ngroups_t array_size;
@@ -773,8 +773,7 @@ if (pass2_init_decl_again != 1 || TREE_CODE(scope) == FUNCTION_BLOCK) {
 	    for (t1 = NET_SOURCE(t); t1; t1 = NET_SOURCE(t1)) {
 		if (strcmp(IDENTIFIER_POINTER(DECL_NAME(t1)),
 			   IDENTIFIER_POINTER(DECL_NAME(t))))
-		    fatal("Line %lu  Driver names to not agree\n",
-			  (char *) lineno);
+		    fatal("Driver names do not agree\n", NULL);
 		pass3_decl(t1);
 	    }
 	}

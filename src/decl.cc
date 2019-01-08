@@ -30,6 +30,8 @@
 #include "schedule.h"
 #include "pass2.h"
 
+#include "../replace/replace.h"
+
 /* Node for the integer constant 0 */
 tree integer_zero_node;
 

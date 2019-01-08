@@ -26,7 +26,6 @@
 #include <signal.h>
 #include <string.h>
 #include <time.h>
-#include <sys/times.h>
 #include <unistd.h>
 #include <setjmp.h>
 #include "vtypes.h"
@@ -37,7 +36,7 @@
 #include "flags.h"
 #include "runtime.h"
 #include "macro.h"
-#include "io.h"
+#include "veriwell_io.h"
 #include "glue.h"
 #include "scope.h"
 #include "veriwell.h"
@@ -49,6 +48,8 @@
 #include "pli.h"
 #include "systask.h"
 #include "build.h"
+
+#include "../replace/replace.h"
 
 #if VDEBUG != 0
 #include "print.h"
@@ -87,15 +88,6 @@ clock_t clock_pause = 0;
 
 /* The current program counter (actually a pointer to a tree node to be
    "executed" */
-
-#define CPS sysconf(_SC_CLK_TCK)
-static clock_t mclock()
-{
-    struct tms tms;
-    times(&tms);
-    return tms.tms_utime + tms.tms_stime;
-}
-
 tree save_pc;
 
 /* The name of this program (Verilog) */
@@ -474,7 +466,7 @@ void Cmdline(int argc, char **argv)
     init_interactive();
 
     /* Now, parse all source files */
-    clock_start = mclock();
+    clock_start = clock();
 
     if (!errorcount) {
 	printf_V("Entering Phase I...\n");
@@ -485,7 +477,7 @@ void Cmdline(int argc, char **argv)
 	    PhaseI();
 	}
     }
-    clock_compile = mclock() - clock_start;
+    clock_compile = clock() - clock_start;
     if (!errorcount) {
 	printf_V("\nEntering Phase II...\n");
 	PhaseII();
@@ -515,7 +507,7 @@ void Cmdline(int argc, char **argv)
 	shell_exit(1);
     }
     printf_V("No errors in compilation\n");
-    clock_load = mclock() - clock_start - clock_compile;
+    clock_load = clock() - clock_start - clock_compile;
 
     if (!simulate) {
 	shell_exit(0);
@@ -920,7 +912,7 @@ void __main_v(int argc, char **argv)
 
 void print_info(void)
 {
-    clock_t clock_current = mclock();
+    clock_t clock_current = clock();
 
     clock_simulate = clock_current - clock_start - clock_compile -
 	clock_load - clock_pause;
@@ -935,8 +927,8 @@ void print_info(void)
     }
     printf_V(", Compile time = %.1f, Load time = %.1f,"
 	     " Simulation time = %.1f\n",
-	     (double) clock_compile / CPS, (double) clock_load / CPS,
-	     (double) clock_simulate / CPS);
+	     (double) clock_compile / CLOCKS_PER_SEC, (double) clock_load / CLOCKS_PER_SEC,
+	     (double) clock_simulate / CLOCKS_PER_SEC);
 }
 
 void finish()

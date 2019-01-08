@@ -37,7 +37,7 @@
 #include "veriwell.h"
 #include "timescal.h"
 #include "exec.h"
-#include "io.h"
+#include "veriwell_io.h"
 
 #define follow(EXPECT, YES, NO)  \
   (nextchar == EXPECT) ? \

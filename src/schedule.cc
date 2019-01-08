@@ -454,12 +454,12 @@ tree WaitOnEventAll(Marker * marker, tree pc)
 
     // pathological case: wait (0); -- wait forever, no markers, skip past Waits
     if (marker)
-	 {
-	for (mark = marker; mark->link != marker; mark = mark->link)
+	{
+	for (mark = marker; mark->link != marker; mark = mark->link)
 	    WaitOnEvent(mark, readylist);
 	WaitOnEvent(mark, readylist);
 	}
-    scb = dispatcher(EVENT_LIST);
+    scb = dispatcher(EVENT_LIST);
 //  *prev_pc = scb->old_pc; /* return the pc that got us here */
     return scb->pc;
 }

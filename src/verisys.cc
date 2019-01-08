@@ -29,10 +29,12 @@
 #include "vtypes.h"
 #include "tree.h"
 #include "veriwell.h"
-#include "io.h"
+#include "veriwell_io.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include "verisys.h"
+
+#include "../replace/replace.h"
 
 int timeformatcheck(int, int);
 int timeformatcall(int, int);

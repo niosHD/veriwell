@@ -40,7 +40,7 @@
 #include "timescal.h"
 #if VDEBUG != 0
 #include "flags.h"
-#include "io.h"
+#include "veriwell_io.h"
 #endif
 
 #define obstack_chunk_alloc xmalloc

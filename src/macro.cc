@@ -25,7 +25,7 @@
 #include "vtypes.h"
 #include "tree.h"
 #include "obstack.h"
-#include "io.h"
+#include "veriwell_io.h"
 #include "macro.h"
 #include "glue.h"
 #include "lex.h"

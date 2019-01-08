@@ -32,6 +32,8 @@
 #include "sdf.h"
 #include "sdfclex.h"
 
+#include "../replace/replace.h"
+
 #include "sdfcpars.h"
 #ifdef __cplusplus
     int	sdfconfig_lex( YYSTYPE* );

@@ -429,7 +429,7 @@ static void lxt_enable( int on )
  ************************************************/
 static void lxt_option( char* str )
 {
-    char* eq = index( str, '=' );
+    char* eq = strchr( str, '=' );
     int   len = strlen( str );
     if( eq ) {
 	len -= strlen( eq );
@@ -721,10 +721,10 @@ static void lxt_incinit()
      */
     lxt.hunk++;
     filename = (char*)malloc( strlen(lxt.filename)+10+1 );
-    dot = rindex( lxt.filename, '.' );
+    dot = strrchr( lxt.filename, '.' );
     *dot = 0;
     if( lxt.hunk > 1 ) {
-	dot = rindex( lxt.filename, '-' );
+	dot = strrchr( lxt.filename, '-' );
 	*dot = 0;
     }
     sprintf( filename, "%s-%d.lxt", lxt.filename, lxt.hunk );

@@ -34,7 +34,7 @@
 #include "runtime.h"
 #include "schedule.h"
 #include "print.h"
-#include "io.h"
+#include "veriwell_io.h"
 #include "macro.h"
 #include "glue.h"
 #include "dumpvar.h"
@@ -702,7 +702,7 @@ void init_systask(tree node)
 
 /* First, count the number of arguments */
     num_args = count_args(node);
-    R_alloc(10, 10);
+    R_alloc(10, 10);
     TREE_NBITS(node) = 1;	/* in case an error causes an early exit */
 
 

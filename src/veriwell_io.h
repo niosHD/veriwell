@@ -17,11 +17,12 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  *****************************************************************************/
 
-/* IO.H - IO prototypes */
+/* VERIWELL_IO.H - IO prototypes */
 
-#ifndef IO_H
-#define IO_H
+#ifndef VERIWELL_IO_H
+#define VERIWELL_IO_H
 
+#include "vtypes.h"
 #include <stdarg.h>
 
 // public methods
@@ -83,9 +84,4 @@ extern int global_print_override;
 extern char *global_print_buffer;
 extern char *global_print_p;
 
-// private methods
-
-#ifdef IO_C
-#endif				//IO_C
-
-#endif				//IO_H
+#endif				//VERIWELL_IO_H

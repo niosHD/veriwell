@@ -425,7 +425,7 @@ static void lxt2_enable( int on )
  ************************************************/
 static void lxt2_option( char* str )
 {
-    char* eq = index( str, '=' );
+    char* eq = strchr( str, '=' );
     int   len = strlen( str );
     if( eq ) {
 	len -= strlen( eq );

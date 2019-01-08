@@ -34,7 +34,7 @@
 #include "acc_user.h"
 #include "pli.h"
 #include "schedule.h"
-#include "io.h"
+#include "veriwell_io.h"
 #include "print.h"
 #include "strobe.h"
 #include "systask.h"
@@ -4846,7 +4846,7 @@ handle acc_handle_tfarg(int argnum)
     case NET_SCALAR_DECL:
     case NET_VECTOR_DECL:
     case MODULE_BLOCK:
-	return ((handle) arg);
+	return ((handle) arg);
 
     }
 

@@ -29,7 +29,7 @@
 #include "schedule.h"
 #include "runtime.h"
 #include "flags.h"
-#include "io.h"
+#include "veriwell_io.h"
 #include "macro.h"
 #include "glue.h"
 #include "strobe.h"

@@ -226,7 +226,8 @@ tree resolve_hierarchical_path(char *path)
     extern char *token_buffer;	/* Will already be as large as needed */
     char *path_name = token_buffer, *decl_name;
 
-    strcpy(path_name, path);
+    if(path != path_name)
+        strcpy(path_name, path);
 
     /* seperate the last component of the path */
     decl_name = strrchr(path_name, '.');
@@ -255,7 +256,8 @@ tree search_scope(char *path_name, int set)
     extern tree scope0;		/* defined in decl.c */
     char *p, *path = token_buffer;
 
-    strcpy(path, path_name);
+    if(path != path_name)
+        strcpy(path, path_name);
     p = strtok(path, ".");
 
     set_scope = current_scope;

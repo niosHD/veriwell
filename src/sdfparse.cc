@@ -230,6 +230,8 @@
 #include "veriuser.h"
 #include "sdf.h"
 
+#include "../replace/replace.h"
+
 #include "sdfparse.h"
 #ifdef __cplusplus
     int	sdf_lex( YYSTYPE* );

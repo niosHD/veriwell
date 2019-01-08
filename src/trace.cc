@@ -26,7 +26,7 @@
 #include "tree.h"
 #include "runtime.h"
 #include "schedule.h"
-#include "io.h"
+#include "veriwell_io.h"
 #include "print.h"
 #include "trace.h"
 

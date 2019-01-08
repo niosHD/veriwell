@@ -39,7 +39,7 @@
 #include "systask.h"
 #include "strobe.h"
 #include "gates.h"
-#include "io.h"
+#include "veriwell_io.h"
 #include "eval.h"
 #include "pass3.h"
 #include "store.h"

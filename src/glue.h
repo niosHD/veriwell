@@ -36,6 +36,13 @@
 #include <signal.h>
 #include "vtypes.h"
 
+#if defined(_WIN32) || defined(OS2) || defined(MSDOS)
+# include <io.h>
+# define ISATTY_FUNC(x) ::_isatty(x)
+#else
+# define ISATTY_FUNC(x) ::isatty(x)
+#endif
+
 #ifndef HAVE_VFSCANF
 extern "C" int vfscanf( FILE*, char*, ... );
 #endif
@@ -102,7 +109,7 @@ class File {
 	delete this;
     }
     int isatty() {
-	return !isBuffer &&::isatty(fileno(f));
+	return !isBuffer &&ISATTY_FUNC(fileno(f));
     }
     static File *fopenbuf(char *buffer, int len) {
 	return new File(buffer, len);

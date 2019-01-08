@@ -26,7 +26,7 @@
 #include "decl.h"
 #include "schedule.h"
 #include "scope.h"
-#include "io.h"
+#include "veriwell_io.h"
 #include "copy.h"
 #include "veriwell.h"
 

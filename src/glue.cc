@@ -58,7 +58,7 @@
 #include "check.h"
 #include "decl.h"
 #include "flags.h"
-#include "io.h"
+#include "veriwell_io.h"
 #include "parse.h"
 #include "dumpvar.h"
 #include "verisys.h"

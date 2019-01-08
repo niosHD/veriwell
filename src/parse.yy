@@ -35,7 +35,7 @@
 #include "tree.h"
 #include "decl.h"
 #include "flags.h"
-#include "io.h"
+#include "veriwell_io.h"
 #include "eval.h"
 #include "check.h"
 #include "specify.h"
@@ -45,6 +45,7 @@
 #include "scope.h"
 #include "veriwell.h"
 
+#include "../replace/replace.h"
 
 #define syn_warning(TEXT) \
 	if (synopsys_flag) \
