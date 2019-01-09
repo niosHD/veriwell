@@ -47,7 +47,6 @@ jobs:
         - autoconf
         - automake
         - bison
-        - gcc@5
         - zip
         update: true
     script:
