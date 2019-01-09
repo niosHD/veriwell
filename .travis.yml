@@ -2,6 +2,20 @@ sudo: required
 services:
   - docker
 
+.deploy_template: &gitlab_release
+  provider: releases
+  name: Development Build of ${TRAVIS_BRANCH}
+  body: Automatic development build of $TRAVIS_BRANCH ($TRAVIS_COMMIT) built by Travis CI on $(date +'%F %T %Z').
+  target_commitish: $TRAVIS_COMMIT
+  prerelease: true
+  overwrite: true
+  api_key:
+    secure: DpiGkTGM2p+Bzfsua4FtZ9juyazyx7kmxeCOQNPrUeCSmjWo4II2xTf/j8D9cM3ZFFlcsWN4IT2Ryr7JRXgmYr7U5vQ8BYlHVC66DhUsaeTvyHY9ARSjrd6/ENw52B4hUOGkUh45LELJQtKRztp/PAOtNZeU/IkfOemhFfUie0SqzDf2hsNk4UyW8TgKQX58k6LY+Muj4GZAqUnNBFPIcsNztJ2JYyiac2ReHcRggbjjAXnAlwvKGyE6l1ydYkxt/5EezZ1oz3fim2OtwHzN0Hz8gy7YlGHUtMDP8A5kQuM4nKl0/fwCUDDtPld32oRr3HLA9nSh+P+hWrme3cBqn/GLBh+7AZYy+RVJrHZWrX1QCHOsJHqHMzzhbzeviHzlVg/qDQqQWMnu3W5cGE3umctKppdaOGHNhRCTiglxgoqWjagwuyEdKSnMAc70K96dRrP9JSerVqQEDgL3lL0at+egqYI4lXISQMR/i0fyKgNWl/7bBtgXPY2+3JVP8Od4pmut7u74ZLoab1fRe0/CI150OgALQUhD7PcGsh8g2bfpO5awBmyM7Mrvx5YgoaPM7J/hPR4YNXiNy4iWoMhzu4f9TS8MxFsrbBNHH3PHVJAjDSC0YMyl/77oBRc+CFOFZWLj67GYwxKCnt7mZnLZFTlVxxiQK3Z3ggKSsHfcb5s=
+  skip_cleanup: true
+  on:
+    all_branches: true
+    repo: niosHD/veriwell
+
 jobs:
   include:
   - stage: compile
@@ -12,21 +26,9 @@ jobs:
     before_deploy:
       - export TRAVIS_TAG=travis-dev-${TRAVIS_BRANCH}
     deploy:
-      provider: releases
-      name: Development Build of ${TRAVIS_BRANCH}
-      body: Automatic development build of $TRAVIS_BRANCH ($TRAVIS_COMMIT) built by Travis CI on $(date +'%F %T %Z').
-      target_commitish: $TRAVIS_COMMIT
-      prerelease: true
-      overwrite: true
-      api_key:
-        secure: DpiGkTGM2p+Bzfsua4FtZ9juyazyx7kmxeCOQNPrUeCSmjWo4II2xTf/j8D9cM3ZFFlcsWN4IT2Ryr7JRXgmYr7U5vQ8BYlHVC66DhUsaeTvyHY9ARSjrd6/ENw52B4hUOGkUh45LELJQtKRztp/PAOtNZeU/IkfOemhFfUie0SqzDf2hsNk4UyW8TgKQX58k6LY+Muj4GZAqUnNBFPIcsNztJ2JYyiac2ReHcRggbjjAXnAlwvKGyE6l1ydYkxt/5EezZ1oz3fim2OtwHzN0Hz8gy7YlGHUtMDP8A5kQuM4nKl0/fwCUDDtPld32oRr3HLA9nSh+P+hWrme3cBqn/GLBh+7AZYy+RVJrHZWrX1QCHOsJHqHMzzhbzeviHzlVg/qDQqQWMnu3W5cGE3umctKppdaOGHNhRCTiglxgoqWjagwuyEdKSnMAc70K96dRrP9JSerVqQEDgL3lL0at+egqYI4lXISQMR/i0fyKgNWl/7bBtgXPY2+3JVP8Od4pmut7u74ZLoab1fRe0/CI150OgALQUhD7PcGsh8g2bfpO5awBmyM7Mrvx5YgoaPM7J/hPR4YNXiNy4iWoMhzu4f9TS8MxFsrbBNHH3PHVJAjDSC0YMyl/77oBRc+CFOFZWLj67GYwxKCnt7mZnLZFTlVxxiQK3Z3ggKSsHfcb5s=
-      file:
-      - veriwell-linux.zip
-      skip_cleanup: true
-      on:
-        all_branches: true
-        tags: false
-        repo: niosHD/veriwell
+      <<: *gitlab_release
+      file: veriwell-linux.zip
+
   - name: Windows MXE
     script:
     - docker run --rm -ti -v "$(pwd):/builds" -w "/builds" --user="$(id -u):$(id -g)" nioshd/mxe:latest bash -c "./configure CXXFLAGS='-Wno-write-strings -fpermissive' --disable-shared --host=x86_64-w64-mingw32.static --prefix=/builds/veriwell-windows;make install"
@@ -34,18 +36,5 @@ jobs:
     before_deploy:
       - export TRAVIS_TAG=travis-dev-${TRAVIS_BRANCH}
     deploy:
-      provider: releases
-      name: Development Build of ${TRAVIS_BRANCH}
-      body: Automatic development build of $TRAVIS_BRANCH ($TRAVIS_COMMIT) built by Travis CI on $(date +'%F %T %Z').
-      target_commitish: $TRAVIS_COMMIT
-      prerelease: true
-      overwrite: true
-      api_key:
-        secure: DpiGkTGM2p+Bzfsua4FtZ9juyazyx7kmxeCOQNPrUeCSmjWo4II2xTf/j8D9cM3ZFFlcsWN4IT2Ryr7JRXgmYr7U5vQ8BYlHVC66DhUsaeTvyHY9ARSjrd6/ENw52B4hUOGkUh45LELJQtKRztp/PAOtNZeU/IkfOemhFfUie0SqzDf2hsNk4UyW8TgKQX58k6LY+Muj4GZAqUnNBFPIcsNztJ2JYyiac2ReHcRggbjjAXnAlwvKGyE6l1ydYkxt/5EezZ1oz3fim2OtwHzN0Hz8gy7YlGHUtMDP8A5kQuM4nKl0/fwCUDDtPld32oRr3HLA9nSh+P+hWrme3cBqn/GLBh+7AZYy+RVJrHZWrX1QCHOsJHqHMzzhbzeviHzlVg/qDQqQWMnu3W5cGE3umctKppdaOGHNhRCTiglxgoqWjagwuyEdKSnMAc70K96dRrP9JSerVqQEDgL3lL0at+egqYI4lXISQMR/i0fyKgNWl/7bBtgXPY2+3JVP8Od4pmut7u74ZLoab1fRe0/CI150OgALQUhD7PcGsh8g2bfpO5awBmyM7Mrvx5YgoaPM7J/hPR4YNXiNy4iWoMhzu4f9TS8MxFsrbBNHH3PHVJAjDSC0YMyl/77oBRc+CFOFZWLj67GYwxKCnt7mZnLZFTlVxxiQK3Z3ggKSsHfcb5s=
-      file:
-      - veriwell-windows.zip
-      skip_cleanup: true
-      on:
-        all_branches: true
-        tags: false
-        repo: niosHD/veriwell
+      <<: *gitlab_release
+      file: veriwell-windows.zip
