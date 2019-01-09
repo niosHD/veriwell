@@ -7,7 +7,7 @@ jobs:
   - stage: compile
     name: Linux
     script:
-    - docker run --rm -ti -v "$(pwd):/builds" -w "/builds" --user="$(id -u):$(id -g)" nioshd/ubuntu-cppdev:latest bash -c "./configure CXXFLAGS='-Wno-write-strings -fpermissive' --disable-shared --prefix=/builds/veriwell-linux;make install;make clean"
+    - docker run --rm -ti -v "$(pwd):/builds" -w "/builds" --user="$(id -u):$(id -g)" nioshd/ubuntu-cppdev:latest bash -c "./configure CXXFLAGS='-Wno-write-strings -fpermissive' --disable-shared --prefix=/builds/veriwell-linux;make install"
     - zip -r veriwell-linux.zip veriwell-linux
     deploy:
       provider: releases
@@ -25,7 +25,7 @@ jobs:
         repo: niosHD/veriwell
   - name: Windows MXE
     script:
-    - docker run --rm -ti -v "$(pwd):/builds" -w "/builds" --user="$(id -u):$(id -g)" nioshd/mxe:latest bash -c "./configure CXXFLAGS='-Wno-write-strings -fpermissive' --disable-shared --host=x86_64-w64-mingw32.static --prefix=/builds/veriwell-windows;make install;make clean"
+    - docker run --rm -ti -v "$(pwd):/builds" -w "/builds" --user="$(id -u):$(id -g)" nioshd/mxe:latest bash -c "./configure CXXFLAGS='-Wno-write-strings -fpermissive' --disable-shared --host=x86_64-w64-mingw32.static --prefix=/builds/veriwell-windows;make install"
     - zip -r veriwell-windows.zip veriwell-windows
     deploy:
       provider: releases
