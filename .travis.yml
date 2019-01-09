@@ -38,3 +38,24 @@ jobs:
     deploy:
       <<: *gitlab_release
       file: veriwell-windows.zip
+
+  - name: OSX
+    os: osx
+    addons:
+      homebrew:
+        packages:
+        - autoconf
+        - automake
+        - bison
+        - gcc@5
+        - zip
+        update: true
+    script:
+    - ./configure CXXFLAGS='-Wno-write-strings -fpermissive' --disable-shared --prefix=/builds/veriwell-osx
+    - make install
+    - zip -r veriwell-osx.zip veriwell-osx
+    before_deploy:
+      - export TRAVIS_TAG=travis-dev-${TRAVIS_BRANCH}
+    deploy:
+      <<: *gitlab_release
+      file: veriwell-osx.zip
