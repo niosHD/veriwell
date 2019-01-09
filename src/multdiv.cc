@@ -21,7 +21,7 @@
 */
 
 #include <stdio.h>
-#include <malloc.h>
+#include <stdlib.h>
 #include "vtypes.h"
 #include "tree.h"
 #include "multdiv.h"
