@@ -9,6 +9,8 @@ jobs:
     script:
     - docker run --rm -ti -v "$(pwd):/builds" -w "/builds" --user="$(id -u):$(id -g)" nioshd/ubuntu-cppdev:latest bash -c "./configure CXXFLAGS='-Wno-write-strings -fpermissive' --disable-shared --prefix=/builds/veriwell-linux;make install"
     - zip -r veriwell-linux.zip veriwell-linux
+    before_deploy:
+      - export TRAVIS_TAG=travis-dev-${TRAVIS_BRANCH}
     deploy:
       provider: releases
       name: Development Build of ${TRAVIS_BRANCH}
@@ -22,11 +24,15 @@ jobs:
       - veriwell-linux.zip
       skip_cleanup: true
       on:
+        all_branches: true
+        tags: false
         repo: niosHD/veriwell
   - name: Windows MXE
     script:
     - docker run --rm -ti -v "$(pwd):/builds" -w "/builds" --user="$(id -u):$(id -g)" nioshd/mxe:latest bash -c "./configure CXXFLAGS='-Wno-write-strings -fpermissive' --disable-shared --host=x86_64-w64-mingw32.static --prefix=/builds/veriwell-windows;make install"
     - zip -r veriwell-windows.zip veriwell-windows
+    before_deploy:
+      - export TRAVIS_TAG=travis-dev-${TRAVIS_BRANCH}
     deploy:
       provider: releases
       name: Development Build of ${TRAVIS_BRANCH}
@@ -40,4 +46,6 @@ jobs:
       - veriwell-windows.zip
       skip_cleanup: true
       on:
+        all_branches: true
+        tags: false
         repo: niosHD/veriwell

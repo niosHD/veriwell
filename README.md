@@ -23,7 +23,7 @@ Alternatively, Veriwell can be compiled using the following commands:
 
     $ git clone https://github.com/niosHD/veriwell.git
     $ cd veriwell
-    $ ./configure --prefix=$(pwd)/install
+    $ ./configure CXXFLAGS='-Wno-write-strings -fpermissive' --prefix=$(pwd)/install
     $ make install
 
 Usage
